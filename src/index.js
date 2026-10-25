@@ -14,7 +14,7 @@ const {
   SlashCommandBuilder,
 } = require('discord.js');
 
-const { DISCORD_TOKEN, CLIENT_ID, GUILD_ID } = process.env;
+const { DISCORD_TOKEN, CLIENT_ID, GUILD_ID, STAFF_ROLE_ID } = process.env;
 
 if (!DISCORD_TOKEN || !CLIENT_ID || !GUILD_ID) {
   console.error('Missing DISCORD_TOKEN, CLIENT_ID, or GUILD_ID environment variable.');
@@ -81,24 +81,38 @@ client.on('interactionCreate', async interaction => {
       }
 
       const safeName = interaction.user.username.toLowerCase().replace(/[^a-z0-9-]/g, '-').slice(0, 18) || 'member';
-      const channel = await guild.channels.create({
-        name: `ticket-${safeName}`,
-        type: ChannelType.GuildText,
-        topic: `gmrp-ticket-owner:${interaction.user.id}`,
-        permissionOverwrites: [
-          { id: guild.roles.everyone.id, deny: [PermissionsBitField.Flags.ViewChannel] },
-          { id: interaction.user.id, allow: [
-            PermissionsBitField.Flags.ViewChannel,
-            PermissionsBitField.Flags.SendMessages,
-            PermissionsBitField.Flags.ReadMessageHistory,
-          ] },
-          { id: client.user.id, allow: [
+      const overwrites = [
+        { id: guild.roles.everyone.id, deny: [PermissionsBitField.Flags.ViewChannel] },
+        { id: interaction.user.id, allow: [
+          PermissionsBitField.Flags.ViewChannel,
+          PermissionsBitField.Flags.SendMessages,
+          PermissionsBitField.Flags.ReadMessageHistory,
+        ] },
+        { id: client.user.id, allow: [
+          PermissionsBitField.Flags.ViewChannel,
+          PermissionsBitField.Flags.SendMessages,
+          PermissionsBitField.Flags.ReadMessageHistory,
+          PermissionsBitField.Flags.ManageChannels,
+        ] },
+      ];
+
+      if (STAFF_ROLE_ID) {
+        overwrites.push({
+          id: STAFF_ROLE_ID,
+          allow: [
             PermissionsBitField.Flags.ViewChannel,
             PermissionsBitField.Flags.SendMessages,
             PermissionsBitField.Flags.ReadMessageHistory,
             PermissionsBitField.Flags.ManageChannels,
-          ] },
-        ],
+          ],
+        });
+      }
+
+      const channel = await guild.channels.create({
+        name: `ticket-${safeName}`,
+        type: ChannelType.GuildText,
+        topic: `gmrp-ticket-owner:${interaction.user.id}`,
+        permissionOverwrites: overwrites,
       });
 
       const closeRow = new ActionRowBuilder().addComponents(
@@ -109,7 +123,7 @@ client.on('interactionCreate', async interaction => {
       );
 
       await channel.send({
-        content: `${interaction.user}, your support ticket is open. Describe your issue here. Staff will need permission to view this channel before they can help.`,
+        content: `${interaction.user}, your support ticket is open. Describe your issue here. Staff can help here if STAFF_ROLE_ID is configured in the bot's environment settings.`,
         components: [closeRow],
       });
 
@@ -123,9 +137,11 @@ client.on('interactionCreate', async interaction => {
       }
 
       const ownerId = channel.topic.split(':')[1];
+      const member = interaction.member;
+      const hasStaffRole = Boolean(STAFF_ROLE_ID && member?.roles?.cache?.has(STAFF_ROLE_ID));
       const canManage = interaction.memberPermissions?.has(PermissionsBitField.Flags.ManageChannels);
-      if (interaction.user.id !== ownerId && !canManage) {
-        return interaction.reply({ content: 'Only the ticket creator or a channel manager can close this ticket.', ephemeral: true });
+      if (interaction.user.id !== ownerId && !canManage && !hasStaffRole) {
+        return interaction.reply({ content: 'Only the ticket creator or authorised staff can close this ticket.', ephemeral: true });
       }
 
       await interaction.reply({ content: 'Ticket closed. This channel will be deleted in a few seconds.' });
