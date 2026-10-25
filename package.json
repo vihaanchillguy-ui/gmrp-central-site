@@ -1,0 +1,16 @@
+{
+  "name": "gmrp-central",
+  "version": "1.0.0",
+  "description": "Support ticket bot for Greater Melbourne Roleplay",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "discord.js": "^14.19.3",
+    "dotenv": "^16.4.7"
+  }
+}
