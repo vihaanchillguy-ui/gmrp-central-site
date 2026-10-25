@@ -1,18 +1,308 @@
 
-<div class="mark" role="img" aria-label="GMRP Central logo">
-  <svg viewBox="0 0 100 112" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="shieldBlue" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#42a5ff"/>
-        <stop offset="100%" stop-color="#1264c0"/>
-      </linearGradient>
-    </defs>
-    <path d="M50 4 91 19v31c0 27-17 46-41 58C26 96 9 77 9 50V19Z"
-      fill="url(#shieldBlue)"/>
-    <path d="M50 12 83 24v26c0 21-13 37-33 48C30 87 17 71 17 50V24Z"
-      fill="#001f3f" stroke="#fff" stroke-width="2.5"/>
-    <path d="M68 38a23 23 0 1 0 2 29H53V55h29v7a32 32 0 1 1-6-31Z"
-      fill="#fff"/>
-    <path d="M53 55h18v9H53z" fill="#80c4ff"/>
-  </svg>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#001f3f">
+  <meta name="description" content="Official GMRP Central website for Greater Melbourne Roleplay.">
+  <title>GMRP Central | Greater Melbourne Roleplay</title>
+
+  <style>
+    :root {
+      --navy: #001f3f;
+      --blue: #1e88e5;
+      --text: #f3f7fc;
+      --muted: #b7c5d8;
+      --panel: #09294a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at top right, #123e67 0, transparent 45%),
+        var(--navy);
+      font: 16px/1.6 system-ui, sans-serif;
+      color: var(--text);
+    }
+
+    header {
+      max-width: 1100px;
+      margin: auto;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* GMRP SHIELD LOGO */
+    .mark {
+      width: 58px;
+      height: 65px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 5px 12px #0005);
+    }
+
+    .mark svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .brand {
+      font-weight: 850;
+      letter-spacing: .08em;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: .72rem;
+      letter-spacing: .15em;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 55px 24px 80px;
+    }
+
+    .hero {
+      max-width: 760px;
+    }
+
+    .eyebrow {
+      color: #80c4ff;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      font-size: .8rem;
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 8vw, 5.6rem);
+      line-height: 1.02;
+      letter-spacing: -.055em;
+      margin: 16px 0 24px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 650px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: var(--blue);
+      color: white;
+      text-decoration: none;
+      font-weight: 750;
+      transition: transform .2s, background .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: #42a5ff;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid #41617f;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 65px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #0b3156, var(--panel));
+      border: 1px solid #254866;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      margin-top: 0;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    footer {
+      border-top: 1px solid #25415d;
+      padding: 24px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer a {
+      color: #9bd1ff;
+      margin: 0 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <!-- Logo is built directly into this HTML file -->
+    <div class="mark" role="img" aria-label="GMRP Central shield logo">
+      <svg viewBox="0 0 100 112" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="shieldBlue" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#42a5ff"/>
+            <stop offset="100%" stop-color="#1264c0"/>
+          </linearGradient>
+        </defs>
+
+        <path
+          d="M50 4 91 19v31c0 27-17 46-41 58C26 96 9 77 9 50V19Z"
+          fill="url(#shieldBlue)"
+        />
+
+        <path
+          d="M50 12 83 24v26c0 21-13 37-33 48C30 87 17 71 17 50V24Z"
+          fill="#001f3f"
+          stroke="#ffffff"
+          stroke-width="2.5"
+        />
+
+        <path
+          d="M68 38a23 23 0 1 0 2 29H53V55h29v7a32 32 0 1 1-6-31Z"
+          fill="#ffffff"
+        />
+
+        <path d="M53 55h18v9H53z" fill="#80c4ff"/>
+      </svg>
+    </div>
+
+    <div class="brand">
+      GMRP <span style="color:#80c4ff">CENTRAL</span>
+      <small>GREATER MELBOURNE ROLEPLAY</small>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Greater Melbourne Roleplay</div>
+
+      <h1>Support, without the chaos.</h1>
+
+      <p>
+        Welcome to GMRP Central, the support hub for Greater Melbourne
+        Roleplay. Find community information and access support for
+        reports, appeals and other issues.
+      </p>
+
+      <div class="actions">
+        <a
+          class="btn"
+          href="https://discord.gg/RZF9ttuUS"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Join GMRP Discord ↗
+        </a>
+
+        <a class="btn secondary" href="#features">
+          Explore features
+        </a>
+      </div>
+    </section>
+
+    <section class="grid" id="features">
+      <article class="card">
+        <h2>🎫 Support</h2>
+        <p>
+          Need assistance? Visit the GMRP Discord to get help from
+          the community's staff team.
+        </p>
+        <div class="actions">
+          <a
+            class="btn secondary"
+            href="https://discord.gg/RZF9ttuUS"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Get support
+          </a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>🛡️ Player Reports</h2>
+        <p>
+          Report community issues through the appropriate channels
+          in the GMRP Discord.
+        </p>
+        <div class="actions">
+          <a
+            class="btn secondary"
+            href="https://discord.gg/RZF9ttuUS"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Report an issue
+          </a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>📋 Appeals</h2>
+        <p>
+          Find the community's appeal process and contact staff
+          through the official Discord server.
+        </p>
+        <div class="actions">
+          <a
+            class="btn secondary"
+            href="https://discord.gg/RZF9ttuUS"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Appeal information
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>Built for GMRP</h2>
+      <p>
+        GMRP Central supports the Greater Melbourne Roleplay community.
+        Check the Discord server for announcements, community rules
+        and the latest support information.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 GMRP Central · Community project
+    <br>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="support.html">Support</a>
+  </footer>
+
+</body>
+</html>
